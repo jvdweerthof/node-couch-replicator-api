@@ -5,11 +5,7 @@ const hyperquest     = require('hyperquest')
 
 
 function get (couch, user, pass, id, callback) {
-  var options = { }
-  if(user && pass)
-    options.auth = user + ':' + pass
-
-  hyperquest(couch + replicatorBase + id, options)
+  hyperquest(couch + replicatorBase + id, { auth: user + ':' + pass })
     .pipe(bl(function (err, data) {
       if (err)
         return callback(err)

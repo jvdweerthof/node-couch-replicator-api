@@ -26,16 +26,14 @@ function put (couch, user, pass, id, doc, callback) {
 
   var data    = JSON.stringify(doc)
     , options = {
-        headers: {
+          auth: user + ':' + pass
+        , headers: {
               'content-type'   : 'application/json'
             , 'content-length' : data.length
             , 'referer'        : url.parse(couch).hostname
-        }
+          }
       }
-  if(user && pass)
-    options.auth = user + ':' + pass;
-
-  var req  = hyperquest.put(couch + replicatorBase + id, options)
+    , req  = hyperquest.put(couch + replicatorBase + id, options)
 
   req.pipe(bl(function (err, data) {
       if (err)
