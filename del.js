@@ -17,11 +17,7 @@ function del (couch, user, pass, id, rev, callback) {
     })
   }
 
-  var options = { }
-  if(user && pass)
-    options.auth = user + ':' + pass
-
-  hyperquest.delete(couch + replicatorBase + id + '?rev=' + rev, options)
+  hyperquest.delete(couch + replicatorBase + id + '?rev=' + rev, { auth: user + ':' + pass })
     .pipe(bl(function (err, data) {
       if (err)
         return callback(err)
